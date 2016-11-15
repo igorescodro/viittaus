@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SpectreView">
+        <!-- Spectrum bar line color. -->
+        <attr name="lineColor" format="color"/>
+
+        <!-- Spectrum background color. -->
+        <attr name="backgroundColor" format="color"/>
+
+        <!-- Quantity of bar lines. -->
+        <attr name="barCount" format="integer"/>
+
+        <!-- Show center separator. -->
+        <attr name="showSeparator" format="boolean"/>
+    </declare-styleable>
+</resources>

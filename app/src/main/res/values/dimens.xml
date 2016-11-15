@@ -21,6 +21,6 @@
     <dimen name="spacing_player_margin">72dp</dimen>
 
     <!-- typical size of views -->
-
+    <dimen name="view_size_huge">256dp</dimen>
 
 </resources>
