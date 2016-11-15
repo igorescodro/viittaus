@@ -9,4 +9,10 @@
     <color name="red_light">#f2cace</color>
 
     <color name="black">#000000</color>
+
+    <color name="green_light">#46D4A1</color>
+
+    <color name="gray_light">#C6C6C6</color>
+    <color name="gray">#313131</color>
+    <color name="gray_dark">#181818</color>
 </resources>

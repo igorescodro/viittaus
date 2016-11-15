@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_dark"
+                android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/music_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_large"/>
+
+    <TextView
+        android:id="@+id/artist_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/music_title"
+        android:layout_marginTop="@dimen/spacing_tiny"
+        android:gravity="center"
+        android:textColor="@color/gray_light"
+        android:textSize="@dimen/font_normal"/>
+
+    <com.escodro.viittaus.view.ArcSeekBar
+        android:id="@+id/arc_seekbar"
+        android:layout_width="@dimen/size_arc_seek_bar"
+        android:layout_height="@dimen/size_arc_seek_bar"
+        android:layout_centerInParent="true"/>
+
+    <ImageView
+        android:id="@+id/album_cover"
+        android:layout_width="@dimen/size_album_cover"
+        android:layout_height="@dimen/size_album_cover"
+        android:layout_centerInParent="true"
+        tools:ignore="ContentDescription"/>
+
+    <ImageButton
+        android:id="@+id/player_button"
+        android:layout_width="@dimen/button_play_button"
+        android:layout_height="@dimen/button_play_button"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button_round"
+        android:scaleType="center"
+        android:src="@drawable/ic_play"
+        tools:ignore="ContentDescription"/>
+
+    <TextView
+        android:id="@+id/text_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/arc_seekbar"
+        android:layout_alignStart="@id/arc_seekbar"
+        android:layout_marginBottom="@dimen/spacing_player_margin"
+        android:text="@string/player_default_time"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_small"/>
+
+    <TextView
+        android:id="@+id/text_remaining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/arc_seekbar"
+        android:layout_alignEnd="@id/arc_seekbar"
+        android:layout_marginBottom="@dimen/spacing_player_margin"
+        android:text="@string/player_default_time"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_small"/>
+
+</RelativeLayout>

@@ -280,9 +280,6 @@ public class RadarView extends SurfaceView implements Runnable {
         return canvasHeight < canvasWidth ? canvasHeight : canvasWidth;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void run() {
         while (mRunning) {
@@ -313,7 +310,7 @@ public class RadarView extends SurfaceView implements Runnable {
     }
 
     /**
-     * Pause the thread on resume the life-cycle.
+     * Pause the thread on pause the life-cycle.
      */
     public void pause() {
         boolean retry = true;
