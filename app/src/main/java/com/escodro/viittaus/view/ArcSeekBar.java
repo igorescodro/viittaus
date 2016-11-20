@@ -130,13 +130,13 @@ public class ArcSeekBar extends SurfaceView implements Runnable {
      */
     private void init() {
         mPaintPrimary = new Paint();
-        mPaintPrimary.setColor(getColor(R.color.green_light));
+        mPaintPrimary.setColor(getColor(R.color.spectre_green_light));
         mPaintPrimary.setStyle(Paint.Style.STROKE);
         mPaintPrimary.setStrokeWidth(5);
         mPaintPrimary.setAntiAlias(true);
 
         mPaintSecondary = new Paint();
-        mPaintSecondary.setColor(getColor(R.color.gray));
+        mPaintSecondary.setColor(getColor(R.color.player_gray));
         mPaintSecondary.setStyle(Paint.Style.STROKE);
         mPaintSecondary.setStrokeWidth(5);
         mPaintSecondary.setAntiAlias(true);

@@ -12,6 +12,6 @@
         android:layout_height="@dimen/view_size_huge"
         android:layout_centerInParent="true"
         app:backgroundColor="@color/black"
-        app:lineColor="@color/green"/>
+        app:lineColor="@color/spectre_green"/>
 
 </RelativeLayout>

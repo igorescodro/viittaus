@@ -3,7 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/gray_dark"
+                android:background="@color/player_gray_dark"
                 android:orientation="vertical">
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_below="@id/music_title"
         android:layout_marginTop="@dimen/spacing_tiny"
         android:gravity="center"
-        android:textColor="@color/gray_light"
+        android:textColor="@color/player_gray_light"
         android:textSize="@dimen/font_normal"/>
 
     <com.escodro.viittaus.view.ArcSeekBar

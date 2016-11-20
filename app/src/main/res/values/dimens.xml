@@ -9,8 +9,9 @@
     <!-- spacing between views -->
     <dimen name="spacing_tiny">4dp</dimen>
     <dimen name="spacing_small">8dp</dimen>
-    <dimen name="spacing_large">48dp</dimen>
-    <dimen name="spacing_huge">56dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_large">32dp</dimen>
+    <dimen name="spacing_huge">64dp</dimen>
 
     <!-- custom views -->
 
@@ -19,6 +20,10 @@
     <dimen name="size_album_cover">256dp</dimen>
     <dimen name="button_play_button">72dp</dimen>
     <dimen name="spacing_player_margin">72dp</dimen>
+
+    <!-- Main List item -->
+    <dimen name="height_main_item">48dp</dimen>
+    <dimen name="size_main_item_icon">48dp</dimen>
 
     <!-- typical size of views -->
     <dimen name="view_size_huge">256dp</dimen>

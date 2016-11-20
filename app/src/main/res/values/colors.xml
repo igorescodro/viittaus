@@ -4,16 +4,20 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="red_dark">#480812</color>
-    <color name="red">#d91f44</color>
-    <color name="red_light">#f2cace</color>
-
     <color name="black">#000000</color>
+    <color name="font_black_title">#DD000000</color>
+    <color name="font_black_text">#89000000</color>
 
-    <color name="green_light">#46D4A1</color>
-    <color name="green">#168542</color>
+    <color name="radar_red_light">#f2cace</color>
+    <color name="radar_red">#d91f44</color>
+    <color name="radar_red_dark">#480812</color>
 
-    <color name="gray_light">#C6C6C6</color>
-    <color name="gray">#313131</color>
-    <color name="gray_dark">#181818</color>
+    <color name="spectre_green_light">#46D4A1</color>
+    <color name="spectre_green">#168542</color>
+
+    <color name="player_gray_light">#C6C6C6</color>
+    <color name="player_gray">#313131</color>
+    <color name="player_gray_dark">#181818</color>
+    <color name="player_red">#FF3942</color>
+    <color name="player_red_dark">#E61F29</color>
 </resources>

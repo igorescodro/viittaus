@@ -135,14 +135,14 @@ public class RadarView extends SurfaceView implements Runnable {
         mLinesPaint = new Paint();
         mLinesPaint.setStyle(Paint.Style.STROKE);
         mLinesPaint.setAntiAlias(true);
-        mLinesPaint.setColor(getColor(R.color.red_light));
+        mLinesPaint.setColor(getColor(R.color.radar_red_light));
 
         mRadarRect = new RectF();
         mBorderRect = new RectF();
 
         mRadarColors = new int[]{
-                getColor(R.color.red_dark),
-                getColor(R.color.red)};
+                getColor(R.color.radar_red_dark),
+                getColor(R.color.radar_red)};
 
     }
 
