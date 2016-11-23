@@ -22,7 +22,7 @@
     <dimen name="spacing_player_margin">72dp</dimen>
 
     <!-- Main List item -->
-    <dimen name="height_main_item">48dp</dimen>
+    <dimen name="height_main_item">86dp</dimen>
     <dimen name="size_main_item_icon">48dp</dimen>
 
     <!-- typical size of views -->

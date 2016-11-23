@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.escodro.viittaus.R;
 import com.escodro.viittaus.activity.PlayerActivity;
+import com.escodro.viittaus.activity.RadarActivity;
 import com.escodro.viittaus.activity.SpectreActivity;
 
 /**
@@ -30,7 +31,16 @@ public enum CustomView {
             R.drawable.ic_spectre_view,
             "SpectreView",
             "Simulates a audio spectrum",
-            SpectreActivity.class);
+            SpectreActivity.class),
+
+    /**
+     * Enum to represent the {@link RadarView}.
+     */
+    RADAR_VIEW(
+            R.drawable.ic_radar_view,
+            "Radar",
+            "Simulates a radar",
+            RadarActivity.class);
 
     /**
      * Field to represent the resource id of the drawable.
