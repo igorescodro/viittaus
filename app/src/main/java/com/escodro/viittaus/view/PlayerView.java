@@ -75,6 +75,10 @@ public class PlayerView extends RelativeLayout implements ViewTreeObserver.OnGlo
         mAdapter.onPause();
     }
 
+    public void onDestroy() {
+        mAdapter.onDestroy();
+    }
+
     /**
      * Sets the audio {@link Uri} to be played.
      *

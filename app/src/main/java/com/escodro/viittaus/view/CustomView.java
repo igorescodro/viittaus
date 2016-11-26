@@ -45,22 +45,22 @@ public enum CustomView {
     /**
      * Field to represent the resource id of the drawable.
      */
-    private int mIconId;
+    private final int mIconId;
 
     /**
      * Field to represent the name of the custom view.
      */
-    private String mName;
+    private final String mName;
 
     /**
      * Field to represent the description of the custom view.
      */
-    private String mDescription;
+    private final String mDescription;
 
     /**
      * Field to represent the {@link AppCompatActivity} of the custom view.
      */
-    private Class<? extends AppCompatActivity> mActivity;
+    private final Class<? extends AppCompatActivity> mActivity;
 
     /**
      * Default constructor.

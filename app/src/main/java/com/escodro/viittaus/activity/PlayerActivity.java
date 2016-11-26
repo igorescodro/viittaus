@@ -58,4 +58,10 @@ public class PlayerActivity extends AppCompatActivity {
         super.onPause();
         mPlayerView.onPause();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPlayerView.onDestroy();
+    }
 }

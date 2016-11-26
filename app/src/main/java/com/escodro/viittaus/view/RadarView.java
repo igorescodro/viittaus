@@ -149,7 +149,7 @@ public class RadarView extends SurfaceView implements Runnable {
     /**
      * Draw the radar view.
      */
-    protected void draw() {
+    private void draw() {
         final Canvas canvas = mHolder.lockCanvas();
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 

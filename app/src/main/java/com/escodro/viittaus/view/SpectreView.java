@@ -34,7 +34,7 @@ public class SpectreView extends SurfaceView implements Runnable {
     /**
      * {@link SurfaceHolder} reference.
      */
-    private SurfaceHolder mHolder;
+    private final SurfaceHolder mHolder;
 
     /**
      * Thread to handle the view animation.

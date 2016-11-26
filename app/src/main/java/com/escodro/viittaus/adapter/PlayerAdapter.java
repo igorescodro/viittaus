@@ -182,8 +182,6 @@ public class PlayerAdapter implements MediaPlayer.OnPreparedListener, MediaPlaye
     @Override
     public void onPrepared(MediaPlayer mp) {
         mHolder.arcSeekBar.setMax(mMediaPlayer.getDuration());
-//        mMediaPlayer.start();
-//        playAlbumAnimation();
     }
 
     @Override
@@ -196,6 +194,10 @@ public class PlayerAdapter implements MediaPlayer.OnPreparedListener, MediaPlaye
 
     @Override
     public void run() {
+        if (mMediaPlayer == null) {
+            return;
+        }
+
         final int currentPosition = mMediaPlayer.getCurrentPosition();
         final int remainingTime = mMediaPlayer.getDuration() - currentPosition;
         mHolder.arcSeekBar.setProgress(currentPosition);
@@ -238,6 +240,15 @@ public class PlayerAdapter implements MediaPlayer.OnPreparedListener, MediaPlaye
      */
     public void onPause() {
         mHolder.arcSeekBar.pause();
+    }
+
+    public void onDestroy() {
+        if (mMediaPlayer != null) {
+            mMediaPlayer.reset();
+            mMediaPlayer.stop();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
     }
 
     /**
@@ -289,37 +300,37 @@ public class PlayerAdapter implements MediaPlayer.OnPreparedListener, MediaPlaye
         /**
          * {@link ImageView} with the album cover.
          */
-        ImageView albumCover;
+        final ImageView albumCover;
 
         /**
          * {@link ArcSeekBar} with the progress of the audio.
          */
-        ArcSeekBar arcSeekBar;
+        final ArcSeekBar arcSeekBar;
 
         /**
          * {@link TextView} with the progress in minutes/second format.
          */
-        TextView textProgress;
+        final TextView textProgress;
 
         /**
          * {@link TextView} with the remaining time in minutes/second format.
          */
-        TextView textRemaining;
+        final TextView textRemaining;
 
         /**
          * {@link TextView} with the artist name.
          */
-        TextView artistName;
+        final TextView artistName;
 
         /**
          * {@link TextView} with the music title.
          */
-        TextView musicTitle;
+        final TextView musicTitle;
 
         /**
          * {@link ImageButton} with the play/pause button.
          */
-        ImageButton playPauseButton;
+        final ImageButton playPauseButton;
 
         /**
          * Create a new instance of {@link PlayerHolder}.

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.escodro.viittaus.R;
@@ -27,7 +26,7 @@ public class MainRecyclerAdapter extends
     /**
      * {@link List} with all the {@link CustomView}.
      */
-    private List<CustomView> mViewList;
+    private final List<CustomView> mViewList;
 
     /**
      * {@link rx.subjects.PublishSubject} to notify when a item was clicked.
@@ -57,7 +56,7 @@ public class MainRecyclerAdapter extends
         holder.icon.setImageResource(customView.getIconId());
         holder.title.setText(customView.getName());
         holder.description.setText(customView.getDescription());
-        holder.background.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickSubject.onNext(customView);
@@ -85,24 +84,19 @@ public class MainRecyclerAdapter extends
     class MainViewHolder extends RecyclerView.ViewHolder {
 
         /**
-         * {@link RelativeLayout} containing all the components.
-         */
-        RelativeLayout background;
-
-        /**
          * {@link ImageView} with the item icon.
          */
-        ImageView icon;
+        final ImageView icon;
 
         /**
          * {@link TextView} with the view name.
          */
-        TextView title;
+        final TextView title;
 
         /**
          * {@link TextView} with the view description.
          */
-        TextView description;
+        final TextView description;
 
         /**
          * Create a new instance of {@link MainViewHolder}.
@@ -111,8 +105,6 @@ public class MainRecyclerAdapter extends
          */
         MainViewHolder(View itemView) {
             super(itemView);
-            background = (RelativeLayout) itemView
-                    .findViewById(R.id.relativelayout_menu_background);
             icon = (ImageView) itemView.findViewById(R.id.imageview_menu_icon);
             title = (TextView) itemView.findViewById(R.id.textview_menu_title);
             description = (TextView) itemView.findViewById(R.id.textview_menu_description);
