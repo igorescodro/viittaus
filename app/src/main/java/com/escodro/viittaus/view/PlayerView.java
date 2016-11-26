@@ -80,6 +80,13 @@ public class PlayerView extends RelativeLayout implements ViewTreeObserver.OnGlo
     }
 
     /**
+     * Destroys the {@link PlayerAdapter}.
+     */
+    public void onDestroy() {
+        mAdapter.onDestroy();
+    }
+
+    /**
      * Sets the audio {@link Uri} to be played.
      *
      * @param uri {@link Uri} to be played
