@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -39,8 +40,14 @@ public class MainActivity extends AppCompatActivity implements Observer<CustomVi
         final MainRecyclerAdapter adapter = new MainRecyclerAdapter(viewList);
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        final DividerItemDecoration itemDecoration = new DividerItemDecoration(
+                recyclerView.getContext(),
+                layoutManager.getOrientation());
+
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(itemDecoration);
 
         adapter.getPositionClicks().subscribe(this);
     }

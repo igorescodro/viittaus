@@ -27,5 +27,8 @@
 
     <!-- typical size of views -->
     <dimen name="view_size_huge">256dp</dimen>
+    <dimen name="app_bar_layout_height">300dp</dimen>
+    <dimen name="collapsing_toolbar_layout_margin_end">64dp</dimen>
+    <dimen name="collapsing_toolbar_layout_margin_start">48dp</dimen>
 
 </resources>
