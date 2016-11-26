@@ -255,18 +255,6 @@ public class PlayerAdapter implements MediaPlayer.OnPreparedListener, MediaPlaye
     }
 
     /**
-     * Method that must be called on destroy the activity.
-     */
-    public void onDestroy() {
-        if (mMediaPlayer != null) {
-            mMediaPlayer.reset();
-            mMediaPlayer.stop();
-            mMediaPlayer.release();
-            mMediaPlayer = null;
-        }
-    }
-
-    /**
      * Set the album cover.
      *
      * @param resId album cover resource id
