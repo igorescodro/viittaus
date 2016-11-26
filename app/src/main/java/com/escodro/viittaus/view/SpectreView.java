@@ -3,14 +3,9 @@ package com.escodro.viittaus.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 
 import com.escodro.viittaus.R;
 
@@ -19,37 +14,12 @@ import java.util.LinkedList;
 /**
  * Custom view to simulate an audio spectrum.
  */
-public class SpectreView extends SurfaceView implements Runnable {
+public class SpectreView extends AnimatedSurfaceView {
 
     /**
      * Half height of center separator.
      */
     private static final int SEPARATOR_HALF_HEIGHT = 2;
-
-    /**
-     * Refresh rate of 30 frames per second.
-     */
-    private static final int DELAY = 1000 / 30;
-
-    /**
-     * {@link SurfaceHolder} reference.
-     */
-    private final SurfaceHolder mHolder;
-
-    /**
-     * Thread to handle the view animation.
-     */
-    private Thread mRenderThread;
-
-    /**
-     * Boolean to control the view animation.
-     */
-    private boolean mRunning;
-
-    /**
-     * Long to control the frame rate.
-     */
-    private long mCurrentTime;
 
     /**
      * List with all the volume values.
@@ -104,11 +74,18 @@ public class SpectreView extends SurfaceView implements Runnable {
     public SpectreView(Context context, AttributeSet attrs) {
         super(context, attrs);
         updateAttributeSetValues(attrs, context);
-        mHolder = getHolder();
-        setZOrderOnTop(true);
-        mHolder.setFormat(PixelFormat.TRANSPARENT);
-        mCurrentTime = System.currentTimeMillis();
         mVolumeList = new LinkedList<>();
+    }
+
+    @Override
+    protected void onDrawOnCanvas(Canvas canvas) {
+        mBarWidth = getWidth() / mAttrBarCount;
+        mMargin = (getWidth() - mAttrBarCount * mBarWidth) / 2;
+        final int centerHeight = getHeight() / 2;
+
+        drawBackground(canvas);
+        drawSeparator(canvas, centerHeight);
+        drawBars(canvas, centerHeight);
     }
 
     /**
@@ -129,67 +106,6 @@ public class SpectreView extends SurfaceView implements Runnable {
             mAttrShowSeparator = typedArray.getBoolean(R.styleable.SpectreView_showSeparator, true);
             typedArray.recycle();
         }
-    }
-
-    /**
-     * Start the thread on resume the life-cycle.
-     */
-    public void resume() {
-        mRunning = true;
-        mRenderThread = new Thread(this);
-        mRenderThread.start();
-    }
-
-    @Override
-    public void run() {
-        while (mRunning) {
-            if (!mHolder.getSurface().isValid()) {
-                continue;
-            }
-            try {
-                draw();
-                long delay = (System.currentTimeMillis() - mCurrentTime) / 1000;
-                mCurrentTime = System.currentTimeMillis();
-                if (delay < DELAY) {
-                    Thread.sleep(DELAY - delay);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Pause the thread on pause the life-cycle.
-     */
-    public void pause() {
-        boolean retry = true;
-        mRunning = false;
-        while (retry) {
-            try {
-                mRenderThread.join();
-                retry = false;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Draw the spectrum view.
-     */
-    private void draw() {
-        final Canvas canvas = mHolder.lockCanvas();
-        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-        mBarWidth = getWidth() / mAttrBarCount;
-        mMargin = (getWidth() - mAttrBarCount * mBarWidth) / 2;
-        final int centerHeight = getHeight() / 2;
-
-        drawBackground(canvas);
-        drawSeparator(canvas, centerHeight);
-        drawBars(canvas, centerHeight);
-
-        mHolder.unlockCanvasAndPost(canvas);
     }
 
     /**

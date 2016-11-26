@@ -4,14 +4,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 
 import com.escodro.viittaus.R;
 
@@ -20,32 +17,7 @@ import com.escodro.viittaus.R;
  * <p/>
  * Created by Igor Escodro on 17/5/2016.
  */
-public class ArcSeekBar extends SurfaceView implements Runnable {
-
-    /**
-     * Refresh rate of 30 frames per second.
-     */
-    private static final int DELAY = 1000 / 30;
-
-    /**
-     * {@link SurfaceHolder} reference.
-     */
-    private SurfaceHolder mHolder;
-
-    /**
-     * Thread to handle the view animation.
-     */
-    private Thread mRenderThread;
-
-    /**
-     * Boolean to control the view animation.
-     */
-    private boolean mRunning;
-
-    /**
-     * Long to control the frame rate.
-     */
-    private long mCurrentTime;
+public class ArcSeekBar extends AnimatedSurfaceView {
 
     /**
      * The primary color of the seek bar.
@@ -114,21 +86,16 @@ public class ArcSeekBar extends SurfaceView implements Runnable {
      */
     public ArcSeekBar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        if (!isInEditMode()) {
-            setZOrderOnTop(true);
-            mHolder = getHolder();
-            mHolder.setFormat(PixelFormat.TRANSPARENT);
-            mCurrentTime = System.currentTimeMillis();
-            mMaxProgress = 100;
-            mSeekBarMargin = 25;
-            init();
-        }
+        init();
     }
 
     /**
      * Initialize the basic components.
      */
     private void init() {
+        mMaxProgress = 100;
+        mSeekBarMargin = 25;
+
         mPaintPrimary = new Paint();
         mPaintPrimary.setColor(getColor(R.color.spectre_green_light));
         mPaintPrimary.setStyle(Paint.Style.STROKE);
@@ -142,6 +109,20 @@ public class ArcSeekBar extends SurfaceView implements Runnable {
         mPaintSecondary.setAntiAlias(true);
 
         mSeekbarArea = new RectF();
+    }
+
+    @Override
+    protected void onDrawOnCanvas(Canvas canvas) {
+        final int halfWidth = canvas.getWidth() / 2;
+        final int halfHeight = canvas.getHeight() / 2;
+        mSeekbarArea.set(
+                halfWidth - mLeftPos,
+                halfHeight - mTopPos,
+                halfWidth + mRightPos,
+                halfHeight + mBottomPos);
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+        canvas.drawArc(mSeekbarArea, 157.5F, 225, false, mPaintSecondary);
+        canvas.drawArc(mSeekbarArea, 157.5F, getProgress(), false, mPaintPrimary);
     }
 
     /**
@@ -211,24 +192,6 @@ public class ArcSeekBar extends SurfaceView implements Runnable {
     }
 
     /**
-     * Draws the {@link ArcSeekBar}.
-     */
-    private void draw() {
-        final Canvas canvas = mHolder.lockCanvas();
-        final int halfWidth = canvas.getWidth() / 2;
-        final int halfHeight = canvas.getHeight() / 2;
-        mSeekbarArea.set(
-                halfWidth - mLeftPos,
-                halfHeight - mTopPos,
-                halfWidth + mRightPos,
-                halfHeight + mBottomPos);
-        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-        canvas.drawArc(mSeekbarArea, 157.5F, 225, false, mPaintSecondary);
-        canvas.drawArc(mSeekbarArea, 157.5F, getProgress(), false, mPaintPrimary);
-        mHolder.unlockCanvasAndPost(canvas);
-    }
-
-    /**
      * Get the color from {@link ColorRes} id.
      *
      * @param colorId color id
@@ -237,50 +200,5 @@ public class ArcSeekBar extends SurfaceView implements Runnable {
      */
     private int getColor(@ColorRes int colorId) {
         return ContextCompat.getColor(getContext(), colorId);
-    }
-
-    @Override
-    public void run() {
-        while (mRunning) {
-            if (!mHolder.getSurface().isValid()) {
-                continue;
-            }
-            draw();
-            long delay = (System.currentTimeMillis() - mCurrentTime);
-            mCurrentTime = System.currentTimeMillis();
-
-            try {
-                if (delay < DELAY) {
-                    Thread.sleep(DELAY - delay);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Starts the thread on resume the life-cycle.
-     */
-    public void resume() {
-        mRunning = true;
-        mRenderThread = new Thread(this);
-        mRenderThread.start();
-    }
-
-    /**
-     * Pauses the thread on pause the life-cycle.
-     */
-    public void pause() {
-        boolean retry = true;
-        mRunning = false;
-        while (retry) {
-            try {
-                mRenderThread.join();
-                retry = false;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

@@ -2,17 +2,13 @@ package com.escodro.viittaus.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 
 import com.escodro.viittaus.R;
 
@@ -22,12 +18,7 @@ import com.escodro.viittaus.R;
  * Created by IgorEscodro on 13/11/16.
  */
 
-public class RadarView extends SurfaceView implements Runnable {
-
-    /**
-     * Refresh rate of 30 frames per second.
-     */
-    private static final int DELAY = 1000 / 30;
+public class RadarView extends AnimatedSurfaceView {
 
     /**
      * Progress of the radar in degrees for each frame.
@@ -38,21 +29,6 @@ public class RadarView extends SurfaceView implements Runnable {
      * {@link SurfaceHolder} reference.
      */
     private SurfaceHolder mHolder;
-
-    /**
-     * Thread to handle the view animation.
-     */
-    private Thread mRenderThread;
-
-    /**
-     * Boolean to control the view animation.
-     */
-    private boolean mRunning;
-
-    /**
-     * Long to control the frame rate.
-     */
-    private long mCurrentTime;
 
     /**
      * Integer to control de rotation of the radar.
@@ -94,21 +70,10 @@ public class RadarView extends SurfaceView implements Runnable {
      */
     private int radarBorderWidth;
 
-    /**
-     * Create a new instance of {@link RadarView}.
-     *
-     * @param context application context
-     */
     public RadarView(Context context) {
         this(context, null);
     }
 
-    /**
-     * Create a new instance of {@link RadarView}.
-     *
-     * @param context application context
-     * @param attrs   attribute set
-     */
     public RadarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -118,13 +83,6 @@ public class RadarView extends SurfaceView implements Runnable {
      * Initialize the view and its components.
      */
     private void init() {
-        mCurrentTime = System.currentTimeMillis();
-
-        mHolder = getHolder();
-        mHolder.setFormat(PixelFormat.TRANSPARENT);
-        setWillNotDraw(false);
-        setZOrderOnTop(true);
-
         mRadarPaint = new Paint();
 
         mBorderPaint = new Paint();
@@ -146,13 +104,8 @@ public class RadarView extends SurfaceView implements Runnable {
 
     }
 
-    /**
-     * Draw the radar view.
-     */
-    private void draw() {
-        final Canvas canvas = mHolder.lockCanvas();
-        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-
+    @Override
+    protected void onDrawOnCanvas(Canvas canvas) {
         final int halfWidth = canvas.getWidth() / 2;
         final int halfHeight = canvas.getHeight() / 2;
         final int smallerDimension = getSmallestDimension(canvas);
@@ -172,8 +125,6 @@ public class RadarView extends SurfaceView implements Runnable {
 
         drawRadarBorder(canvas, halfWidth, halfHeight, halfRadius);
         drawRadarLines(canvas, halfWidth, halfHeight, halfRadius);
-
-        mHolder.unlockCanvasAndPost(canvas);
     }
 
     /**
@@ -278,50 +229,5 @@ public class RadarView extends SurfaceView implements Runnable {
         final int canvasHeight = canvas.getHeight();
         final int canvasWidth = canvas.getWidth();
         return canvasHeight < canvasWidth ? canvasHeight : canvasWidth;
-    }
-
-    @Override
-    public void run() {
-        while (mRunning) {
-            if (!mHolder.getSurface().isValid()) {
-                continue;
-            }
-            draw();
-            long delay = (System.currentTimeMillis() - mCurrentTime);
-            mCurrentTime = System.currentTimeMillis();
-
-            try {
-                if (delay < DELAY) {
-                    Thread.sleep(DELAY - delay);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Start the thread on resume the life-cycle.
-     */
-    public void resume() {
-        mRunning = true;
-        mRenderThread = new Thread(this);
-        mRenderThread.start();
-    }
-
-    /**
-     * Pause the thread on pause the life-cycle.
-     */
-    public void pause() {
-        boolean retry = true;
-        mRunning = false;
-        while (retry) {
-            try {
-                mRenderThread.join();
-                retry = false;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
