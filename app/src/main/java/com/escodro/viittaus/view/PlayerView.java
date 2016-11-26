@@ -75,6 +75,9 @@ public class PlayerView extends RelativeLayout implements ViewTreeObserver.OnGlo
         mAdapter.onPause();
     }
 
+    /**
+     * Destroys the {@link PlayerAdapter}.
+     */
     public void onDestroy() {
         mAdapter.onDestroy();
     }

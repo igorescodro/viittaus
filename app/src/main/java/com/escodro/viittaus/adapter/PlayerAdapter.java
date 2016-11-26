@@ -242,6 +242,9 @@ public class PlayerAdapter implements MediaPlayer.OnPreparedListener, MediaPlaye
         mHolder.arcSeekBar.pause();
     }
 
+    /**
+     * Method that must be called on destroy the activity.
+     */
     public void onDestroy() {
         if (mMediaPlayer != null) {
             mMediaPlayer.reset();
