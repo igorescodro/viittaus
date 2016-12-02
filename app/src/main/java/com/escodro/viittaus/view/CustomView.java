@@ -4,6 +4,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 
 import com.escodro.viittaus.R;
+import com.escodro.viittaus.activity.ChronusActivity;
 import com.escodro.viittaus.activity.PlayerActivity;
 import com.escodro.viittaus.activity.RadarActivity;
 import com.escodro.viittaus.activity.SpectreActivity;
@@ -40,7 +41,14 @@ public enum CustomView {
             R.drawable.ic_radar_view,
             "Radar",
             "Simulates a radar",
-            RadarActivity.class);
+            RadarActivity.class),
+
+    CHRONUS_VIEW(
+            R.drawable.ic_chronus_view,
+            "ChronusView",
+            "A view to simulate a clock",
+            ChronusActivity.class
+    );
 
     /**
      * Field to represent the resource id of the drawable.

@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.RectF;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
 import com.escodro.viittaus.R;
@@ -189,16 +187,5 @@ public class ArcSeekBar extends AnimatedSurfaceView {
             progress = ((float) 225 / mMaxProgress) * mCurrentProgress;
         }
         return progress;
-    }
-
-    /**
-     * Get the color from {@link ColorRes} id.
-     *
-     * @param colorId color id
-     *
-     * @return color
-     */
-    private int getColor(@ColorRes int colorId) {
-        return ContextCompat.getColor(getContext(), colorId);
     }
 }

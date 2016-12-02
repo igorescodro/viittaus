@@ -5,10 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.SweepGradient;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.SurfaceHolder;
 
 import com.escodro.viittaus.R;
 
@@ -24,11 +21,6 @@ public class RadarView extends AnimatedSurfaceView {
      * Progress of the radar in degrees for each frame.
      */
     private static final int PROGRESS = 5;
-
-    /**
-     * {@link SurfaceHolder} reference.
-     */
-    private SurfaceHolder mHolder;
 
     /**
      * Integer to control de rotation of the radar.
@@ -70,10 +62,21 @@ public class RadarView extends AnimatedSurfaceView {
      */
     private int radarBorderWidth;
 
+    /**
+     * Create a new instance of {@link RadarView}
+     *
+     * @param context application context
+     */
     public RadarView(Context context) {
         this(context, null);
     }
 
+    /**
+     * Create a new instance of {@link RadarView}
+     *
+     * @param context application context
+     * @param attrs   attribute set
+     */
     public RadarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -204,17 +207,6 @@ public class RadarView extends AnimatedSurfaceView {
                 halfHeight + halfRadius * 0.7F,
                 mLinesPaint
         );
-    }
-
-    /**
-     * Get the color from {@link ColorRes} id.
-     *
-     * @param colorId color id
-     *
-     * @return color
-     */
-    private int getColor(@ColorRes int colorId) {
-        return ContextCompat.getColor(getContext(), colorId);
     }
 
     /**

@@ -29,6 +29,10 @@
             android:name=".activity.RadarActivity"
             android:launchMode="singleTask"/>
 
+        <activity
+            android:name=".activity.ChronusActivity"
+            android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>

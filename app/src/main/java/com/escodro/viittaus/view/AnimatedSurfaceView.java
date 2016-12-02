@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
+import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -104,6 +106,17 @@ public abstract class AnimatedSurfaceView extends SurfaceView implements Runnabl
      * @param canvas canvas to be drawn
      */
     protected abstract void onDrawOnCanvas(Canvas canvas);
+
+    /**
+     * Get the color from {@link ColorRes} id.
+     *
+     * @param colorId color id
+     *
+     * @return color
+     */
+    protected int getColor(@ColorRes int colorId) {
+        return ContextCompat.getColor(getContext(), colorId);
+    }
 
     /**
      * Lock the canvas and draw a transparent background. After the draw done by children in {@link
