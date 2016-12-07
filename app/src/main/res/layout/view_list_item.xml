@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.escodro.viittaus.viewmodel.ViewViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_menu_background"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_main_item"
+        android:background="?android:attr/selectableItemBackground"
+        android:onClick="@{viewModel.onItemClick}"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_menu_icon"
+            android:layout_width="@dimen/size_main_item_icon"
+            android:layout_height="@dimen/size_main_item_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:src="@{viewModel.viewIcon}"
+            tools:ignore="ContentDescription"/>
+
+        <TextView
+            android:id="@+id/tv_menu_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_menu_icon"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            android:layout_toEndOf="@+id/iv_menu_icon"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.viewName}"
+            android:textColor="@color/font_black_title"
+            android:textSize="@dimen/font_normal"/>
+
+        <TextView
+            android:id="@+id/tv_menu_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_menu_icon"
+            android:layout_marginBottom="@dimen/spacing_tiny"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_toEndOf="@+id/iv_menu_icon"
+            android:text="@{viewModel.viewDescription}"
+            android:textColor="@color/font_black_text"/>
+
+    </RelativeLayout>
+
+</layout>
