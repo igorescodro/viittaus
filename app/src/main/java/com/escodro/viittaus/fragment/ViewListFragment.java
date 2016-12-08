@@ -1,4 +1,4 @@
-package com.escodro.viittaus;
+package com.escodro.viittaus.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.escodro.viittaus.R;
 import com.escodro.viittaus.activity.ChronusActivity;
 import com.escodro.viittaus.activity.PlayerActivity;
 import com.escodro.viittaus.activity.RadarActivity;

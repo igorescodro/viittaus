@@ -50,7 +50,8 @@ public abstract class AnimatedSurfaceView extends SurfaceView implements Runnabl
      * @param context application context
      */
     public AnimatedSurfaceView(Context context) {
-        this(context, null);
+        super(context);
+        init();
     }
 
     /**
@@ -61,22 +62,22 @@ public abstract class AnimatedSurfaceView extends SurfaceView implements Runnabl
      */
     public AnimatedSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        if (!isInEditMode()) {
-            init();
-        }
+        init();
     }
 
     /**
      * Initialize the {@link SurfaceView} with default configuration.
      */
     private void init() {
-        mCurrentTime = System.currentTimeMillis();
-        mHolder = getHolder();
+        if (!isInEditMode()) {
+            mCurrentTime = System.currentTimeMillis();
+            mHolder = getHolder();
 
-        setSurfaceHolderFormat(PixelFormat.TRANSPARENT);
-        setFrameRate(30);
-        setWillNotDraw(false);
-        setZOrderOnTop(true);
+            setSurfaceHolderFormat(PixelFormat.TRANSPARENT);
+            setFrameRate(30);
+            setWillNotDraw(false);
+            setZOrderOnTop(true);
+        }
     }
 
     /**

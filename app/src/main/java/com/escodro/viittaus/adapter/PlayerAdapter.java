@@ -40,6 +40,11 @@ public class PlayerAdapter implements MediaPlayer.OnPreparedListener, MediaPlaye
     private MediaPlayer mMediaPlayer;
 
     /**
+     * Application {@link Context}
+     */
+    private final Context mContext;
+
+    /**
      * {@link PlayerHolder} reference.
      */
     private final PlayerHolder mHolder;
@@ -48,11 +53,6 @@ public class PlayerAdapter implements MediaPlayer.OnPreparedListener, MediaPlaye
      * {@link Handler} to control the {@link ArcSeekBar} update.
      */
     private final Handler mHandler;
-
-    /**
-     * Application {@link Context}
-     */
-    private final Context mContext;
 
     /**
      * Rotate {@link Animation}.

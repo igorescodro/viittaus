@@ -24,7 +24,7 @@ public class SpectreView extends AnimatedSurfaceView {
     /**
      * List with all the volume values.
      */
-    private final LinkedList<Integer> mVolumeList;
+    private LinkedList<Integer> mVolumeList;
 
     /**
      * Boolean to represent if the center separator should be shown.
@@ -62,7 +62,8 @@ public class SpectreView extends AnimatedSurfaceView {
      * @param context application context
      */
     public SpectreView(Context context) {
-        this(context, null);
+        super(context);
+        init();
     }
 
     /**
@@ -74,6 +75,13 @@ public class SpectreView extends AnimatedSurfaceView {
     public SpectreView(Context context, AttributeSet attrs) {
         super(context, attrs);
         updateAttributeSetValues(attrs, context);
+        init();
+    }
+
+    /**
+     * Initialize the list of spectrum.
+     */
+    private void init() {
         mVolumeList = new LinkedList<>();
     }
 

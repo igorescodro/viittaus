@@ -10,21 +10,9 @@ import com.escodro.viittaus.view.SpectreView;
 
 import java.util.Random;
 
-/**
- * {@link AppCompatActivity} with the {@link SpectreView}.
- * <p/>
- * Created by Igor Escodro on 15/11/2016.
- */
 public class SpectreActivity extends AppCompatActivity {
 
-    /**
-     * {@link SpectreView} reference.
-     */
     private SpectreView mSpectreView;
-
-    /**
-     * Handler to control de infinite loop.
-     */
     private Handler mHandler;
 
     /**
@@ -51,11 +39,6 @@ public class SpectreActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Get a random number.
-     *
-     * @return random number.
-     */
     private int getRandomNumber() {
         final Random random = new Random();
         return random.nextInt(100 - 30) + 30;

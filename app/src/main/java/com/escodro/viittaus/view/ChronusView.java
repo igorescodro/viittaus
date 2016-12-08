@@ -39,6 +39,7 @@ public class ChronusView extends AnimatedSurfaceView {
      */
     public ChronusView(Context context) {
         super(context);
+        init();
     }
 
     /**

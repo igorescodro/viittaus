@@ -73,7 +73,8 @@ public class ArcSeekBar extends AnimatedSurfaceView {
      * @param context application context
      */
     public ArcSeekBar(Context context) {
-        this(context, null);
+        super(context);
+        init();
     }
 
     /**

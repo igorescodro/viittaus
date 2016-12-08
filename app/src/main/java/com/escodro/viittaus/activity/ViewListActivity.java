@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.escodro.viittaus.R;
-import com.escodro.viittaus.ViewListFragment;
+import com.escodro.viittaus.fragment.ViewListFragment;
 
 public class ViewListActivity extends AppCompatActivity {
 

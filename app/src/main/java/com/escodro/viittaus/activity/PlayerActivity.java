@@ -8,16 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.escodro.viittaus.R;
 import com.escodro.viittaus.view.PlayerView;
 
-/**
- * {@link AppCompatActivity} with the {@link PlayerView}.
- * <p/>
- * Created by Igor Escodro on 6/5/2016.
- */
 public class PlayerActivity extends AppCompatActivity {
 
-    /**
-     * {@link PlayerView} reference.
-     */
     private PlayerView mPlayerView;
 
     @Override
@@ -33,13 +25,6 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Converts from resource id to {@link Uri}
-     *
-     * @param resId resource id
-     *
-     * @return uri of the resource
-     */
     private Uri resourceIdToUri(int resId) {
         return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
                 getResources().getResourcePackageName(resId) + '/' +

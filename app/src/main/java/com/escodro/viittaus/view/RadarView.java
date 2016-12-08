@@ -68,7 +68,8 @@ public class RadarView extends AnimatedSurfaceView {
      * @param context application context
      */
     public RadarView(Context context) {
-        this(context, null);
+        super(context);
+        init();
     }
 
     /**

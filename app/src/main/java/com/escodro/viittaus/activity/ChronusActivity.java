@@ -7,17 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.escodro.viittaus.R;
 import com.escodro.viittaus.view.ChronusView;
 
-/**
- * {@link AppCompatActivity} with the {@link ChronusView}.
- * <p/>
- * Created by IgorEscodro on 27/11/16.
- */
-
 public class ChronusActivity extends AppCompatActivity {
 
-    /**
-     * @link ChronusView} reference.
-     */
     private ChronusView mChronusView;
 
     @Override

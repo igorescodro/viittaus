@@ -29,7 +29,8 @@ public class PlayerView extends RelativeLayout implements ViewTreeObserver.OnGlo
      * @param context application context
      */
     public PlayerView(Context context) {
-        this(context, null);
+        super(context);
+        init(context);
     }
 
     /**
@@ -40,10 +41,7 @@ public class PlayerView extends RelativeLayout implements ViewTreeObserver.OnGlo
      */
     public PlayerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        if (!isInEditMode()) {
-            setWillNotDraw(false);
-            init(context);
-        }
+        init(context);
     }
 
     /**
@@ -52,13 +50,16 @@ public class PlayerView extends RelativeLayout implements ViewTreeObserver.OnGlo
      * @param context application context
      */
     private void init(Context context) {
-        final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context
-                .LAYOUT_INFLATER_SERVICE);
-        final View view = inflater.inflate(R.layout.view_player, this);
-        mAdapter = new PlayerAdapter(getContext(), view);
+        if (!isInEditMode()) {
+            setWillNotDraw(false);
+            final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context
+                    .LAYOUT_INFLATER_SERVICE);
+            final View view = inflater.inflate(R.layout.view_player, this);
+            mAdapter = new PlayerAdapter(getContext(), view);
 
-        final ViewTreeObserver treeObserver = getViewTreeObserver();
-        treeObserver.addOnGlobalLayoutListener(this);
+            final ViewTreeObserver treeObserver = getViewTreeObserver();
+            treeObserver.addOnGlobalLayoutListener(this);
+        }
     }
 
     /**
