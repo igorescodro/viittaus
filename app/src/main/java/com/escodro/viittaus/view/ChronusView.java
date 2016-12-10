@@ -18,6 +18,32 @@ import java.util.Calendar;
 public class ChronusView extends AnimatedSurfaceView {
 
     /**
+     * Radius of the clock.
+     */
+    private static final int CLOCK_RADIUS = 260;
+
+    /**
+     * Radius of the inner circle, that "holds" the pointers.
+     */
+    private static final int INNER_CIRCLE_RADIUS = 8;
+
+    /**
+     * The default pointer height, which is applied to minutes and seconds pointers.
+     */
+    private static final int DEFAULT_POINTER_HEIGHT = 230;
+
+    /**
+     * Pointer height to hours pointer. It must be lower than the other pointers.
+     */
+    private static final int HOURS_POINTER_HEIGHT = 153;
+
+    /**
+     * The negative value for seconds pointer. It is the value that will create the effect which the
+     * seconds pointer is even bigger then others.
+     */
+    private static final int SECONDS_POINTER_TAIL = 35;
+
+    /**
      * Paint of the clock background.
      */
     private Paint mClockBackgroundPaint;
@@ -82,28 +108,119 @@ public class ChronusView extends AnimatedSurfaceView {
         final int minute = calendar.get(Calendar.MINUTE);
         final int hour = calendar.get(Calendar.HOUR);
 
-        final int secondAngle = second * (360 / 60);
-        final int minuteAngle = minute * (360 / 60) + (second / 10);
-        final int hourAngle = hour * (360 / 12) + (minute / 2);
+        final int secondAngle = getSecondsAngle(second);
+        final int minuteAngle = getMinutesAngle(minute, second);
+        final int hourAngle = getHoursAngle(hour, minute);
 
-        canvas.drawCircle(halfWidth, halfHeight, 260, mClockBackgroundPaint);
+        canvas.drawCircle(halfWidth, halfHeight, CLOCK_RADIUS, mClockBackgroundPaint);
 
+        drawHoursPointer(canvas, hourAngle, halfWidth, halfHeight);
+        drawMinutesPointer(canvas, minuteAngle, halfWidth, halfHeight);
+        drawSecondsPointer(canvas, secondAngle, halfWidth, halfHeight);
+
+        canvas.drawCircle(halfWidth, halfHeight, INNER_CIRCLE_RADIUS, mDefaultPointerPaint);
+    }
+
+    /**
+     * Calculate the second pointer angle in the clock. This angle is the position where the second
+     * pointer will point in the clock.<br> The angle is calculated as follows:
+     * <p/>
+     * [Current second] * ([circumference] / [# of seconds in one hour])
+     *
+     * @param second current system seconds
+     *
+     * @return seconds angle
+     */
+    private int getSecondsAngle(int second) {
+        return second * (360 / 60);
+    }
+
+    /**
+     * Calculate the minute pointer angle in the clock. This angle is the position where the minute
+     * pointer will point in the clock.<br> The angle is calculated as follows:
+     * <p/>
+     * <i>[current minute]</i> * (<i>[circumference]</i> / <i>[# of minutes in one hour]</i>) +
+     * (<i>[current second]</i> / (<i>[# of minutes in one hour]</i> / (<i>[circumference]</i> /
+     * <i>[# of seconds in one minute]</i>))
+     * <p/>
+     * The last sum in the equation is to keep the minutes pointer more fluid. It will move slowly
+     * while the seconds pointer is moving, creating a better transition between minutes.
+     *
+     * @param minute current system minutes
+     * @param second current system seconds
+     *
+     * @return minutes angle
+     */
+    private int getMinutesAngle(int minute, int second) {
+        return minute * (360 / 60) + (second / (60 / (360 / 60)));
+    }
+
+    /**
+     * Calculate the hour pointer angle in the clock. This angle is the position where the hour
+     * pointer will point in the clock.<br> The angle is calculated as follows:
+     * <p/>
+     * <i>[current hour]</i> * (<i>[circumference]</i> / <i>[# of hours in one day (AM/PM)]</i>) +
+     * (<i>[current minute]</i> / (<i>[# of hours in one day (AM/PM)]</i> / (<i>[circumference]</i>
+     * / <i>[# of minutes in one hour]</i>))
+     * <p/>
+     * The last sum in the equation is to keep the hours pointer more fluid. It will move slowly
+     * while the minutes pointer is moving, creating a better transition between hours.
+     *
+     * @param hour   current system hours
+     * @param minute current system minutes
+     *
+     * @return hour angle
+     */
+    private int getHoursAngle(int hour, int minute) {
+        return hour * (360 / 12) + (minute / (12 / (360 / 60)));
+    }
+
+    /**
+     * Draw the hours pointer in the clock.
+     *
+     * @param canvas     canvas to be drawn
+     * @param hourAngle  the angle of the hour pointer in the clock
+     * @param halfWidth  half width of the canvas
+     * @param halfHeight half height of the canvas
+     */
+    private void drawHoursPointer(Canvas canvas, float hourAngle, int halfWidth, int halfHeight) {
+        final int pointerHeight = halfHeight - HOURS_POINTER_HEIGHT;
         canvas.save();
         canvas.rotate(hourAngle, halfWidth, halfHeight);
-        canvas.drawLine(halfWidth, halfHeight, halfWidth, halfHeight - 153, mDefaultPointerPaint);
+        canvas.drawLine(halfWidth, halfHeight, halfWidth, pointerHeight, mDefaultPointerPaint);
         canvas.restore();
+    }
 
+    /**
+     * Draw the minutes pointer in the clock.
+     *
+     * @param canvas     canvas to be drawn
+     * @param minAngle   the angle of the minute pointer in the clock
+     * @param halfWidth  half width of the canvas
+     * @param halfHeight half height of the canvas
+     */
+    private void drawMinutesPointer(Canvas canvas, float minAngle, int halfWidth, int halfHeight) {
+        final int pointerHeight = halfHeight - DEFAULT_POINTER_HEIGHT;
         canvas.save();
-        canvas.rotate(minuteAngle, halfWidth, halfHeight);
-        canvas.drawLine(halfWidth, halfHeight, halfWidth, halfHeight - 230, mDefaultPointerPaint);
+        canvas.rotate(minAngle, halfWidth, halfHeight);
+        canvas.drawLine(halfWidth, halfHeight, halfWidth, pointerHeight, mDefaultPointerPaint);
         canvas.restore();
+    }
 
+    /**
+     * Draw the seconds pointer in the clock.
+     *
+     * @param canvas     canvas to be drawn
+     * @param secAngle   the angle of the second pointer in the clock
+     * @param halfWidth  half width of the canvas
+     * @param halfHeight half height of the canvas
+     */
+    private void drawSecondsPointer(Canvas canvas, float secAngle, int halfWidth, int halfHeight) {
+        final int pointerHeight = halfHeight - DEFAULT_POINTER_HEIGHT;
+        final int pointerTail = halfHeight + SECONDS_POINTER_TAIL;
         canvas.save();
-        canvas.rotate(secondAngle, halfWidth, halfHeight);
-        canvas.drawLine(halfWidth, halfHeight + 35, halfWidth, halfHeight - 230,
-                mSecondPointerPaint);
+        canvas.rotate(secAngle, halfWidth, halfHeight);
+        canvas.drawLine(halfWidth, pointerTail, halfWidth, pointerHeight, mSecondPointerPaint);
         canvas.restore();
-
-        canvas.drawCircle(halfWidth, halfHeight, 8, mDefaultPointerPaint);
     }
 }
